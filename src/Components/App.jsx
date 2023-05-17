@@ -3,7 +3,7 @@ import PlayTrip from './Maps/PlayTrip';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Map from "./Maps/Map";
 import { useState, useEffect } from 'react'
-import supabase from '../supabaseClient'
+import supabase from '../supabaseClient';
 import Auth from './Auth'
 import Account from './Account'
 import QuizForm from './Quiz/Quizform';
@@ -14,15 +14,15 @@ import Navbar from './UI/NavBar';
 import TotalScore from './UIGame/TotalScore';
 
 export default function App() {
-  // const [session, setSession] = useState(null)
+  const [session, setSession] = useState(null);
 
-  // useEffect(() => {
-  //   setSession(supabase.auth.session())
+  useEffect(() => {
+    setSession(supabase.auth.session())
 
-  //   supabase.auth.onAuthStateChange((_event, session) => {
-  //     setSession(session)
-  //   })
-  // }, [])
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
 
   return (
     <div className="bg-home-picture bg-cover body-font font-cagliostro">
@@ -34,11 +34,11 @@ export default function App() {
           <Route path="Quizform" element={<QuizForm />} />
           <Route path="Quiz" element={<QuizParent />} />
           <Route path="Totalscore" element={<TotalScore />} />
-          {/* <Route path="Account" element={!session ? (
-      //   <Auth />
-      // ) : (
-      //   <Account key={session.user.id} session={session} />
-      // )} /> */}
+          <Route path="Account" element={!session ? (
+        <Auth />
+      ) : (
+        <Account key={session.user.id} session={session} />
+      )} />
         </Routes>
       </BrowserRouter>
     </div>
