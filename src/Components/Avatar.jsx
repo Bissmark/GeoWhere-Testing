@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import supabase from './supabaseClient'
+import { supabase } from '../supabaseClient'
 
 
 export default function Avatar({ url, size, onUpload }) {
@@ -55,18 +55,16 @@ export default function Avatar({ url, size, onUpload }) {
   }
 
   return (
-    <div style={{ width: size }} aria-live="polite">
+    <div>
       <img
         src={avatarUrl ? avatarUrl : `https://place-hold.it/${size}x${size}`}
         alt={avatarUrl ? 'Avatar' : 'No image'}
-        className="avatar image"
-        style={{ height: size, width: size }}
       />
       {uploading ? (
         'Uploading...'
       ) : (
-        <>
-          <label className="button primary block my-5" htmlFor="single">
+        <div className='mt-5'>
+          <label className="bg-yellow-400 hover:bg-orange-700 text-black active:animate-ping font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" htmlFor="single">
             Upload an avatar
           </label>
 
@@ -76,10 +74,9 @@ export default function Avatar({ url, size, onUpload }) {
               accept="image/*"
               onChange={uploadAvatar}
               disabled={uploading}
-              className="upload"
+              className="hidden"
             />
-
-        </>
+        </div>
       )}
     </div>
   )

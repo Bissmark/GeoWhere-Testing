@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import supabase from "../../supabaseClient";
+import { supabase } from "../../supabaseClient";
 
 function Score({ newRoundScore }) {
     const [scores, setScores] = useState([]);

@@ -69,7 +69,7 @@ function PlayTrip() {
             <div>
               <Round round={ round }/>
               <Streetview locationNumber={ locationNumber } />
-              <GuessMap updateMarkers={ updateMarkers } guessLocation={ guessLocation }/>
+              {/* <GuessMap updateMarkers={ updateMarkers } guessLocation={ guessLocation }/> */}
             </div>
           )}
           { round !== 6 && view && (

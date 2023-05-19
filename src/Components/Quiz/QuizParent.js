@@ -1,7 +1,7 @@
 import CountdownTimer from "../CountdownTimer/CountdownTimer";
 import Quiz from "./Quiz";
 import { useEffect, useState } from 'react';
-import supabase from "../../supabaseClient";
+import { supabase } from "../../supabaseClient";
 
 function QuizParent () {
     const [currentQuiz, setCurrentQuiz] = useState('');

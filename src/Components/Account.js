@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import supabase from '../supabaseClient'
-import Avatar from '../Avatar'
+import { supabase } from '../supabaseClient'
+import Avatar from './Avatar'
 
 const Account = ({ session }) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
+  const [score, setScore] = useState(0);
   const [avatar_url, setAvatarUrl] = useState(null)
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const Account = ({ session }) => {
   
 
   const updateProfile = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       setLoading(true)
@@ -64,26 +65,46 @@ const Account = ({ session }) => {
   }
 
   return (
-    <div className='profile flex justify-center flex-col my-10 text-center my-5'>
+    <div className='justify-center my-10 text-center'>
       {loading ? (
         'Saving ...'
       ) : (
-        <form className='profileForm' onSubmit={updateProfile}>
+        <form className='w-full max-w-3xl m-auto' onSubmit={updateProfile}>
           <div>
-            <label className='username' htmlFor="username">Hello</label>
-            <br />
+            <label className='text-yellow-500 text-sm font-bold mb-2 mr-2' htmlFor="username">
+              Email
+            </label>
             <input
-              className='text-black text-center'
+              className='text-black text-center rounded-lg mr-5'
+              type="text"
+              value={session.user.email || ''}
+              disabled
+            />
+            <label className='text-yellow-500 text-sm font-bold mb-2 mt-5 mr-2' htmlFor="username">
+              Username
+            </label>
+            <input
+              className='text-black text-center rounded-lg'
               id="username"
               type="text"
               value={username || ''}
               onChange={(e) => setUsername(e.target.value)}
             />
+            <div className='mt-5'>
+              <label className='text-yellow-500 text-sm font-bold mb-2 mr-2' htmlFor="username">
+                Highscore after 5 rounds
+              </label>
+              <input
+                className='text-black text-center rounded-lg'
+                type="text"
+                value={score}
+                disabled
+              />  
+            </div>
           </div>
-          <div className='my-8 text-lg'>
+          <div className='my-8 items-center'>
               <Avatar
             url={avatar_url}
-            size={150}
             onUpload={(url) => {
             setAvatarUrl(url)
             updateProfile({ username, avatar_url: url })
@@ -91,19 +112,22 @@ const Account = ({ session }) => {
         />
           </div>
           <div>
-            <button className=" bg-yellow-400 hover:bg-orange-700 text-black active:animate-ping text-slate font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={loading}>
+            <button className=" bg-yellow-400 hover:bg-orange-700 text-black active:animate-ping font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5" disabled={loading}>
               Update profile
             </button>
+            <button
+              type="button"
+              onClick={() => supabase.auth.signOut()}
+              disabled={loading}
+              className="bg-yellow-400 hover:bg-orange-700 text-black active:animate-ping text-slate font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Sign Out
+            </button>
           </div>
+          
         </form>
       )}
-      <button
-        type="button"
-        onClick={() => supabase.auth.signOut()}
-        className="signOut mt-12 bg-yellow-400 hover:bg-orange-700 text-black active:animate-ping text-slate font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Sign Out
-      </button>
+      
     </div>
   )
 }
