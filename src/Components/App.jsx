@@ -29,7 +29,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="bg-home-picture bg-cover bg-bottom body-font font-cagliostro">
+    <div className="body-font font-cagliostro">
       <BrowserRouter>
         <Navbar session={session} />
         <Routes>
