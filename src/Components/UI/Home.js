@@ -4,7 +4,7 @@ import HomePicture from './../../globe.gif'
 
 function Home() {
   return (
-    <div className="h-screen flex flex-col items-center text-center">
+    <div className="flex flex-col items-center text-center">
       <div className="mb-7">
         <h1 className='title text-yellow-500 mb-4 text-3xl font-bold mt-10'>Welcome to GeoWhere</h1>
         <p className='text-yellow-500'>Click below to start playing</p>
