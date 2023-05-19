@@ -27,41 +27,35 @@ export default function Register() {
     };
 
     return (
-        <div>
-            <p className="text-3xl font-bold underline text-center">Sign up to our great website</p>
-            <div className="w-full max-w-xs m-auto mt-5">
-                <form onSubmit={Signup}>
-                    <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            className="block w-full rounded-md border-0 py-1.5 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-ring-indigo-600 sm-text-sm sm:leading-6 mb-2"
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            placeholder="Enter your password"
-                            value={password}
-                            className="block w-full rounded-md border-0 py-1.5 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-ring-indigo-600 sm-text-sm sm:leading-6 mb-2"
-                            required
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={loading}>
-                            {loading ? <span>Loading...</span> : <span>Sign up!</span>}
-                        </button>
-                    </div>
+        <div className="mt-5">
+            <p className="text-3xl font-bold underline text-center text-yellow-400 mb-5">Sign up to our great website</p>
+            <div className="m-auto max-w-xs">
+                <form className="bg-slate-400 rounded-lg flex flex-col items-center" onSubmit={Signup}>
+                    <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        className="p-4 border rounded-lg text-gray-700"
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="password">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        className="p-4 border rounded-lg text-gray-700"
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button className="bg-yellow-400 p-4 mt-5 rounded-lg mb-5" disabled={loading}>
+                        {loading ? <span>Loading...</span> : <span>Sign up!</span>}
+                    </button>
                 </form>
             </div>
         </div>

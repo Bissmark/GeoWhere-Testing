@@ -33,31 +33,37 @@ export default function Auth() {
             </svg>
           </div>
         ) : (
-          <form className="bg-slate-400 rounded-lg flex flex-col items-center" onSubmit={handleLogin}>
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">Email</label>
-            <input 
-              id="email"
-              className="p-4 border rounded-lg text-gray-700"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="password">
-                Password
-            </label>
-            <input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                required
+          <div>
+            <p className="text-3xl font-bold underline text-center text-yellow-400 mb-5">Login</p>
+            <form className="bg-slate-400 rounded-lg flex flex-col items-center" onSubmit={handleLogin}>
+              <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">
+                Email
+              </label>
+              <input 
+                id="email"
                 className="p-4 border rounded-lg text-gray-700"
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button className="bg-yellow-400 p-4 mt-5 rounded-lg" >
-              Login
-            </button>
-          </form>
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="password">
+                  Password
+              </label>
+              <input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  required
+                  className="p-4 border rounded-lg text-gray-700"
+                  onChange={(e) => setPassword(e.target.value)}
+              />
+              <button className="bg-yellow-400 p-4 mt-5 rounded-lg mb-5" >
+                Login!
+              </button>
+            </form>  
+          </div>
+          
         )}
     </div>
   );
