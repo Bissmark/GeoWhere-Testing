@@ -59,7 +59,7 @@ function PlayTrip() {
 
   // if its the 6th round show results page else if on round 1-5 show either the guessing map or the results map
   return (
-      <div className="h-screen">
+      <div>
           { round === 6 && (
             <div>
               <Results totalScore={ totalScore }/>
@@ -69,16 +69,18 @@ function PlayTrip() {
             <div>
               <Round round={ round }/>
               <Streetview locationNumber={ locationNumber } />
-              {/* <GuessMap updateMarkers={ updateMarkers } guessLocation={ guessLocation }/> */}
+              <GuessMap updateMarkers={ updateMarkers } guessLocation={ guessLocation }/>
             </div>
           )}
           { round !== 6 && view && (
             <div>
-              <button className="" onClick={ nextRound }>
+              <div className="flex items-center justify-evenly mb-5 mt-5">
+                <Score newRoundScore={ newRoundScore }/>
+                <button className="bg-yellow-400 text-slate-800 p-2 rounded-lg hover:bg-red-500 hover:animate-bounce" onClick={ nextRound }>
                 { round !== 5 ? 'Next Round' : 'Finish' }
-              </button>
-              <Score newRoundScore={ newRoundScore }/>
-              <TotalScore totalScore={ totalScore }/>
+                </button>
+                <TotalScore totalScore={ totalScore }/>  
+              </div>
               <Map markerValue={ markerLocation } locationNumber={ locationNumber }/>
             </div>
           )}

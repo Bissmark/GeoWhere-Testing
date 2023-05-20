@@ -1,20 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker, Polyline } from "@react-google-maps/api";
 import { coordinates } from "./Streetview";
-import './Map.css'
+import axios from "axios";
 
 // Size of Map window
 const containerStyle = {
-  width: "1200px",
-  height: "500px",
+  width: '90%',
+  height: '75vh',
+  margin: '0 auto',
 };
 
 function MyComponent({ markerValue, locationNumber }) {
+  const [country, setCountry] = useState('');
+
   // Loads google api key
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
+
+  useEffect(() => {
+    const handleMarkerPositionChanged = async () => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${markerValue[0]},${markerValue[1]}&key=${process.env.REACT_APP_API_KEY}`
+      );
+  
+      const result = response.data.results.find((r) =>
+        r.types.includes("country")
+      );
+  
+      if (result) {
+        const location = response.data.results[1].formatted_address;
+        //console.log("Country:", country);
+        setCountry(location);
+        // Do something with the country value
+      }
+    } catch (error) {
+      console.error("Error retrieving country:", error);
+    }
+  };
+  handleMarkerPositionChanged();
+  }, [])
+  
+
 
   let coordinateStreetView = coordinates[locationNumber][0]
 
@@ -37,6 +66,11 @@ function MyComponent({ markerValue, locationNumber }) {
     zIndex: 1,
   };
 
+  const MarkerOptions = {
+    color: 'blue',
+    backgroundColor: 'yellow'
+  }
+
   let clickedMarkerValues = { lat: markerValue[0], lng: markerValue[1] }
 
   // Line between the 2 coordinates
@@ -49,17 +83,16 @@ function MyComponent({ markerValue, locationNumber }) {
   // And the other is the coordinates of where the user clicked
   // Creates the line between those points with the path from before
   return isLoaded ? (
-    <div className="">
+    <div>
       <GoogleMap
-        className=""
         mapContainerStyle={containerStyle}
         center={coordinateStreetView}
         zoom={3}
         options={mapOptions}
         clickableIcons={false}
       >
-        {clickedMarkerValues.lat ? <Marker position={coordinateStreetView} clickable={false} /> : null}
-        {clickedMarkerValues.lat ? <Marker position={clickedMarkerValues} clickable={false} /> : null}
+        {clickedMarkerValues.lat ? <Marker label={{text: `${coordinates[locationNumber][1].country}`, color: 'yellow'}} position={coordinateStreetView} clickable={false} /> : null}
+        {clickedMarkerValues.lat ? <Marker label={{text: `${country}`, color: 'yellow', margin: '10px'}} position={clickedMarkerValues} clickable={false} /> : null}
         {clickedMarkerValues.lat ? <Polyline path={PolyLineBetweenGuessAndCorrect} options={PolylineOptions} /> : null}
       </GoogleMap>
     </div>
@@ -68,4 +101,4 @@ function MyComponent({ markerValue, locationNumber }) {
   );
 }
 
-export default React.memo(MyComponent);
+export default MyComponent;

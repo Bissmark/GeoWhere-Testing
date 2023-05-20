@@ -9,9 +9,9 @@ const center = {
 
 // Size of the Guessing map inside streetview
 const containerStyle = {
-  width: '40vh',
-  height: '25vh'
-};
+    width: '30vh',
+    height: '20vh'
+}
 
 export default function GuessMap({ updateMarkers, guessLocation }) {
     const [isSelected, setSelected] = useState(false);
@@ -39,7 +39,7 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
 
     // Showing the GuessMap, where you can put a marker on and the guess button
     return isLoaded ? (
-        <div className='inline-block opacity-30 hover:opacity-100 absolute right-28 bottom-24'>
+        <div className='z-10 opacity-30 hover:opacity-100 absolute right-24 bottom-44'>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
@@ -52,7 +52,7 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
                 clickable={false}
             />
             </GoogleMap>
-            <button className="bg-yellow-400 text-slate-800 relative left-24 w-40 rounded-lg h-10 mt-3 hover:bg-red-400 hover:animate-bounce" onClick={() => _handleGuessClick()}>Guess</button>
+            <button className="bg-yellow-400 text-slate-800 relative left-1/3 w-28 rounded-lg h-10 mt-3 hover:bg-red-400 hover:animate-bounce" onClick={() => _handleGuessClick()}>Guess</button>
         </div>
     ) : <></>
 }

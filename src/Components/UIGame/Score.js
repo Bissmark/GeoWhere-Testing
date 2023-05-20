@@ -18,7 +18,7 @@ function Score({ newRoundScore }) {
 
     // Showing the Score on some views
     return (
-      <div className='score'>Score this round: { newRoundScore }</div>
+      <div className='inline-block z-10 p-2 bg-yellow-400 rounded-lg'>Score this round: { newRoundScore }</div>
     );
   }
 

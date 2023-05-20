@@ -7,19 +7,15 @@ function QuizParent () {
     const [currentQuiz, setCurrentQuiz] = useState('');
 
     async function fetchRandomQuiz(){
-       
-
         let {data} = await supabase
           .from('New Quizes')
           .select('*')
-
 
         const randomIndex = Math.floor(Math.random() * data.length);
         if (data[randomIndex]) {
             setCurrentQuiz(data[randomIndex].content);
         }
     }
-
 
     async function eraseSubmission () {
       let { data: quizes } = await supabase
@@ -38,23 +34,19 @@ function QuizParent () {
         .from('quizes')
         .delete()
         .match({id: ID});
-
       });
     }
-    
 
     useEffect(() => {
-        eraseSubmission();
-        fetchRandomQuiz();
-
-      }, []);
+      eraseSubmission();
+      fetchRandomQuiz();
+    }, []);
 
     return(
-        <div className="quiz text-yellow-500 text-center my-10">
+        <div className="text-yellow-500 text-center my-10">
             <h2>{ currentQuiz }</h2>
             <Quiz />
             <CountdownTimer eraseSubmission={ eraseSubmission } fetchRandomQuiz={ fetchRandomQuiz } />
-
         </div>
     );
 }

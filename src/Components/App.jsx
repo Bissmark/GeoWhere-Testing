@@ -1,14 +1,12 @@
 import React from 'react';
 import PlayTrip from './Maps/PlayTrip';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Map from "./Maps/Map";
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient';
 import Auth from './Auth'
 import Account from './Account'
 import QuizForm from './Quiz/Quizform';
 import QuizParent from './Quiz/QuizParent';
-import CountdownTimer from './CountdownTimer/CountdownTimer';
 import Home from './UI/Home';
 import Navbar from './UI/NavBar';
 import TotalScore from './UIGame/TotalScore';
@@ -24,7 +22,6 @@ export default function App() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      console.log(session);
     })
   }, [])
 
