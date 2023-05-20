@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker, Polyline } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker, Polyline, InfoWindow} from "@react-google-maps/api";
 import { coordinates } from "./Streetview";
 import axios from "axios";
 
@@ -12,6 +12,8 @@ const containerStyle = {
 
 function MyComponent({ markerValue, locationNumber }) {
   const [country, setCountry] = useState('');
+  const [infoWindowVisible, setInfoWindowVisible] = useState(true);
+  const [infoWindowVisible2, setInfoWindowVisible2] = useState(true);
 
   // Loads google api key
   const { isLoaded } = useJsApiLoader({
@@ -42,8 +44,6 @@ function MyComponent({ markerValue, locationNumber }) {
   };
   handleMarkerPositionChanged();
   }, [])
-  
-
 
   let coordinateStreetView = coordinates[locationNumber][0]
 
@@ -91,8 +91,17 @@ function MyComponent({ markerValue, locationNumber }) {
         options={mapOptions}
         clickableIcons={false}
       >
-        {clickedMarkerValues.lat ? <Marker label={{text: `${coordinates[locationNumber][1].country}`, color: 'yellow'}} position={coordinateStreetView} clickable={false} /> : null}
-        {clickedMarkerValues.lat ? <Marker label={{text: `${country}`, color: 'yellow', margin: '10px'}} position={clickedMarkerValues} clickable={false} /> : null}
+        {clickedMarkerValues.lat ? <Marker>
+          <InfoWindow position={coordinateStreetView}>
+            <div>{coordinates[locationNumber][1].country}</div>
+          </InfoWindow></Marker> : null}
+        {clickedMarkerValues.lat ? <Marker>
+        <InfoWindow position={clickedMarkerValues}>
+            <div>
+              {country}
+            </div>
+          </InfoWindow>
+        </Marker> : null}
         {clickedMarkerValues.lat ? <Polyline path={PolyLineBetweenGuessAndCorrect} options={PolylineOptions} /> : null}
       </GoogleMap>
     </div>

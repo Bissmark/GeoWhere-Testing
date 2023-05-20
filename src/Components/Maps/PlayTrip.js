@@ -38,7 +38,6 @@ function PlayTrip() {
   const guessLocation = () => {
     setView(view ? view - 1 : view + 1);
     updateRoundScore();
-    console.log(view);
   };
 
   const nextRound = () => {
