@@ -57,6 +57,7 @@ export default function Avatar({ url, size, onUpload }) {
   return (
     <div>
       <img
+      className='h-72 mx-auto md:h-max'
         src={avatarUrl ? avatarUrl : `https://place-hold.it/${size}x${size}`}
         alt={avatarUrl ? 'Avatar' : 'No image'}
       />

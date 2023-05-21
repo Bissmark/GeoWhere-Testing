@@ -5,6 +5,7 @@ import { locationCoordinates } from '../../Utils/Locations';
 import { calculateDistance } from "../../Utils/DistanceCalc";
 import GuessMap from './GuessMap';
 import { useState } from 'react';
+import Round from '../UIGame/Round';
 
 // Size of streetview window
 const containerStyle = {
@@ -14,7 +15,7 @@ const containerStyle = {
 };
 export let coordinates = locationCoordinates; // Get coordinates
 
-function MyComponent({ locationNumber }) {
+function MyComponent({ locationNumber, round }) {
 
   // gets google api key
   const { isLoaded } = useJsApiLoader({
@@ -41,12 +42,13 @@ function MyComponent({ locationNumber }) {
           <StreetViewPanorama
           position={ locationCoordinates[locationNumber][0] }
           options={panoOptions}
+          
         />
+        <Round />
+        <Timer />
         {/* <GuessMap updateMarkers={updateMarkers} guessLocation={guessLocation} /> */}
         </GoogleMap>
-        <div className="p-4 z-2 text-yellow-400">
-          <Timer />
-        </div>
+        
    </div>
   ) : <></>
 }

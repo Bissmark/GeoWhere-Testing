@@ -2,7 +2,7 @@
 
 function Round({ round }) {
     return (
-        <div className="round"> Round: {round}/5  </div>
+        <div className="z-10 bg-yellow-400 absolute p-4 font"> Round: {round}/5  </div>
     );
 }
 

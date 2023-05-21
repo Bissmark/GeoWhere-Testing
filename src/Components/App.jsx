@@ -31,7 +31,7 @@ export default function App() {
         <Navbar session={session} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="PlayTrip" element={<PlayTrip />} />
+          <Route path="PlayTrip" element={<PlayTrip session={session} />} />
           <Route path="Quizform" element={<QuizForm />} />
           <Route path="Quiz" element={<QuizParent />} />
           <Route path="Totalscore" element={<TotalScore />} />

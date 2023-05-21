@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker, Polyline, InfoWindow} from "@react-google-maps/api";
 import { coordinates } from "./Streetview";
+import { calcCrow } from "../../Utils/DistanceCalc";
+import { supabase } from "../../supabaseClient";
 import axios from "axios";
 
 // Size of Map window
@@ -12,8 +14,6 @@ const containerStyle = {
 
 function MyComponent({ markerValue, locationNumber }) {
   const [country, setCountry] = useState('');
-  const [infoWindowVisible, setInfoWindowVisible] = useState(true);
-  const [infoWindowVisible2, setInfoWindowVisible2] = useState(true);
 
   // Loads google api key
   const { isLoaded } = useJsApiLoader({
@@ -79,6 +79,8 @@ function MyComponent({ markerValue, locationNumber }) {
     { lat: coordinateStreetView.lat, lng: coordinateStreetView.lng },
   ];
 
+  //const d = calcCrow(clickedMarkerValues.lat, clickedMarkerValues.lng, coordinateStreetView.lat, coordinateStreetView.lng);
+
   // Showing the Map with the 2 markers, 1 which are the coordinates of the streetview location
   // And the other is the coordinates of where the user clicked
   // Creates the line between those points with the path from before
@@ -98,7 +100,7 @@ function MyComponent({ markerValue, locationNumber }) {
         {clickedMarkerValues.lat ? <Marker>
         <InfoWindow position={clickedMarkerValues}>
             <div>
-              {country}
+              {country || 'In the ocean'}
             </div>
           </InfoWindow>
         </Marker> : null}
