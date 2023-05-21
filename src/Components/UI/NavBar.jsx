@@ -4,7 +4,7 @@ import HomePicture from './../../globe.gif'
 
 function Navbar({session}) {
   const [openNav, setOpenNav] = useState(false);
-  console.log('lmao')
+  console.log('lmao');
   const handleDropDown = () => {
     setOpenNav(!openNav);
   };
