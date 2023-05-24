@@ -2,10 +2,8 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader, StreetViewPanorama } from '@react-google-maps/api';
 import Timer from '../UIGame/Timer';
 import { locationCoordinates } from '../../Utils/Locations';
-import { calculateDistance } from "../../Utils/DistanceCalc";
-import GuessMap from './GuessMap';
-import { useState } from 'react';
 import Round from '../UIGame/Round';
+import GuessMap from './GuessMap';
 
 // Size of streetview window
 const containerStyle = {
@@ -15,7 +13,7 @@ const containerStyle = {
 };
 export let coordinates = locationCoordinates; // Get coordinates
 
-function MyComponent({ locationNumber, round }) {
+function MyComponent({ locationNumber, round, updateMarkers, guessLocation }) {
 
   // gets google api key
   const { isLoaded } = useJsApiLoader({
@@ -39,14 +37,14 @@ function MyComponent({ locationNumber, round }) {
           mapContainerStyle={containerStyle}
           addressControl={false}
         >
-          <StreetViewPanorama
+          <StreetViewPanorama 
           position={ locationCoordinates[locationNumber][0] }
           options={panoOptions}
           
         />
-        <Round />
+        <Round round={round}/>
         <Timer />
-        {/* <GuessMap updateMarkers={updateMarkers} guessLocation={guessLocation} /> */}
+        <GuessMap updateMarkers={updateMarkers} guessLocation={guessLocation} />
         </GoogleMap>
         
    </div>

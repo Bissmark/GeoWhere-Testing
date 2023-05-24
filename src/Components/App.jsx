@@ -14,6 +14,9 @@ import Register from './Register';
 
 export default function App() {
   const [session, setSession] = useState(null);
+  const [round, setRound] = useState(1);
+  const [totalScore, setTotalScore] = useState(0);
+  const [currentHighScore, setCurrentHighScore] = useState(0);
 
   useEffect(() => {
     // supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,8 +33,8 @@ export default function App() {
       <BrowserRouter>
         <Navbar session={session} />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="PlayTrip" element={<PlayTrip session={session} />} />
+          <Route path="/" element={<Home setTotalScore={setTotalScore} />} />
+          <Route path="PlayTrip" element={<PlayTrip session={session} setRound={setRound} round={round} totalScore={totalScore} setTotalScore={setTotalScore} currentHighScore={currentHighScore} setCurrentHighScore={setCurrentHighScore} />} />
           <Route path="Quizform" element={<QuizForm />} />
           <Route path="Quiz" element={<QuizParent />} />
           <Route path="Totalscore" element={<TotalScore />} />

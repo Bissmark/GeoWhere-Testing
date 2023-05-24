@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react';
-import { supabase } from "../../supabaseClient";
-
 function Score({ newRoundScore, username }) {
     // Showing the Score on some views
     return (

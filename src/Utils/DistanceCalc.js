@@ -24,6 +24,5 @@ function calculateBonus(km) {
 // Calculates the distance between 2 coordinates
 export const calculateDistance = (lat1, lng1, lat2, lng2) => {
     let d = calcCrow(lat1, lng1, lat2, lng2);
-    console.log(d);
     return calculateBonus(d);
 }

@@ -5,8 +5,8 @@ import Avatar from './Avatar'
 const Account = ({ session }) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
-  const [score, setScore] = useState(0);
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [score, setScore] = useState(null);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -21,10 +21,11 @@ const Account = ({ session }) => {
           .single()
 
         if (error && status !== 406) {
-          throw error
+          throw error 
         } else if (data) {
           setUsername(data.username);
           setAvatarUrl(data.avatar_url);
+          setScore(data.score);
         }
       } catch (error) {
         alert(error.message);
@@ -47,7 +48,6 @@ const Account = ({ session }) => {
         id: session.user.id,
         username,
         avatar_url,
-        score,
         updated_at: new Date(),
       }
 

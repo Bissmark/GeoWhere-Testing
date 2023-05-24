@@ -4,12 +4,13 @@ import HomePicture from './../../globe.gif'
 
 function Navbar({session}) {
   const [openNav, setOpenNav] = useState(false);
-  console.log('lmao');
+
   const handleDropDown = () => {
     setOpenNav(!openNav);
   };
 
   return (
+    
     <nav className="bg-white border-gray-200 dark:bg-slate-900 justify-between">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center">
@@ -58,7 +59,7 @@ function Navbar({session}) {
                     // className="py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-blue-500 md:dark:hover:bg-transparent"
                     
                   >
-                    <img className="rounded-full h-6 ml-3 mt-1" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="" />
+                    <img className="rounded-full h-6 ml-1" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="" />
                     {/* Account */}
                   </Link>
                 </li>

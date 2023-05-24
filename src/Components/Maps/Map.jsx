@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker, Polyline, InfoWindow} from "@react-google-maps/api";
 import { coordinates } from "./Streetview";
-import { calcCrow } from "../../Utils/DistanceCalc";
-import { supabase } from "../../supabaseClient";
 import axios from "axios";
 
 // Size of Map window
@@ -43,7 +41,7 @@ function MyComponent({ markerValue, locationNumber }) {
     }
   };
   handleMarkerPositionChanged();
-  }, [])
+  }, [markerValue])
 
   let coordinateStreetView = coordinates[locationNumber][0]
 
@@ -66,11 +64,6 @@ function MyComponent({ markerValue, locationNumber }) {
     zIndex: 1,
   };
 
-  const MarkerOptions = {
-    color: 'blue',
-    backgroundColor: 'yellow'
-  }
-
   let clickedMarkerValues = { lat: markerValue[0], lng: markerValue[1] }
 
   // Line between the 2 coordinates
@@ -78,8 +71,6 @@ function MyComponent({ markerValue, locationNumber }) {
     { lat: clickedMarkerValues.lat, lng: clickedMarkerValues.lng },
     { lat: coordinateStreetView.lat, lng: coordinateStreetView.lng },
   ];
-
-  //const d = calcCrow(clickedMarkerValues.lat, clickedMarkerValues.lng, coordinateStreetView.lat, coordinateStreetView.lng);
 
   // Showing the Map with the 2 markers, 1 which are the coordinates of the streetview location
   // And the other is the coordinates of where the user clicked

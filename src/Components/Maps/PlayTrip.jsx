@@ -1,5 +1,4 @@
 import React from "react";
-import GuessMap from "./GuessMap";
 import Streetview from "./Streetview";
 import Map from "./Map";
 import { useState, useEffect } from "react";
@@ -8,7 +7,6 @@ import { locationCoordinates } from "../../Utils/Locations";
 import { Results } from "../UIGame/Results";
 import Score from "../UIGame/Score";
 import TotalScore from "../UIGame/TotalScore";
-import Round from "../UIGame/Round";
 import { supabase } from "../../supabaseClient";
 
 function randomIntFromInterval() {
@@ -23,51 +21,13 @@ function randomIntFromIntervalNotSameOne(oldNum) {
   return randomIntFromIntervalNotSameOne(oldNum);
 }
 
-function PlayTrip({session}) {
+function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurrentHighScore}) {
   const [view, setView] = useState('');
   const [markerLocation, setMarkerLocation] = useState([]);
   const [locationNumber, setLocationNumber] = useState(randomIntFromInterval());
   const [round, setRound] = useState(1);
-  const [totalScore, setTotalScore] = useState(0);
   const [newRoundScore, setNewRoundScore] = useState(0);
-  const [username, setUsername] = useState(null)
-  const [score, setScore] = useState(0);
-  const [avatar_url, setAvatarUrl] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const getProfile = async () => {
-      
-        if (session) {
-          try {
-            setLoading(true)
-            const { user } = session;
-
-            let { data, error, status } = await supabase
-              .from('profiles')
-              .select(`username, avatar_url, score`)
-              .eq('id', user.id)
-              .single()
-
-            if (error && status !== 406) {
-              throw error
-            } else if (data) {
-              setUsername(data.username);
-              setAvatarUrl(data.avatar_url);
-              setScore(totalScore);
-            }
-          } catch (error) {
-            alert(error.message);
-          } finally {
-            setLoading(false);
-          }  
-        }
-        
-    }
-
-    getProfile();
-  }, [session])
-  
+  const [username, setUsername] = useState(null);
   
   const updateMarkers = (lat, lng) => {
     setMarkerLocation([lat,lng]);
@@ -100,14 +60,13 @@ function PlayTrip({session}) {
       <div>
           { round === 6 && (
             <div>
-              <Results totalScore={ totalScore }/>
+              <Results session={session} totalScore={ totalScore } setTotalScore={setTotalScore} currentHighScore={currentHighScore} setCurrentHighScore={setCurrentHighScore}/>
             </div>
           )}
           { round !== 6 && !view && (
             <div>
               {/* <Round round={ round }/> */}
-              <Streetview locationNumber={ locationNumber } />
-              <GuessMap updateMarkers={ updateMarkers } guessLocation={ guessLocation }/>
+              <Streetview locationNumber={ locationNumber} updateMarkers={updateMarkers} guessLocation={guessLocation} round={round}/>
             </div>
           )}
           { round !== 6 && view && (
@@ -119,7 +78,7 @@ function PlayTrip({session}) {
                 </button>
                 <TotalScore username={username} totalScore={ totalScore }/>  
               </div>
-              <Map markerValue={ markerLocation } locationNumber={ locationNumber }/>
+              <Map markerValue={ markerLocation } locationNumber={ locationNumber } />
             </div>
           )}
       </div>

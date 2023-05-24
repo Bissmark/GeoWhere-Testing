@@ -14,7 +14,7 @@ const containerStyle = {
 }
 
 export default function GuessMap({ updateMarkers, guessLocation }) {
-    const [isSelected, setSelected] = useState(false);
+    const [selected, setSelected] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState();
 
     const { isLoaded } = useJsApiLoader({
@@ -26,7 +26,7 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
     const _handleMapClick = (ev, lat, lng) => {
         setSelected(true);
         setSelectedLocation(ev.latLng);
-        updateMarkers(lat, lng);
+        updateMarkers(lat, lng); 
     }
 
     const _handleGuessClick = () => {
@@ -39,7 +39,7 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
 
     // Showing the GuessMap, where you can put a marker on and the guess button
     return isLoaded ? (
-        <div className='z-10 opacity-30 hover:opacity-100 absolute right-24 bottom-44'>
+        <div className='z-10 opacity-30 hover:opacity-100 absolute right-10 bottom-10 md:right-10 md:bottom-10'>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}

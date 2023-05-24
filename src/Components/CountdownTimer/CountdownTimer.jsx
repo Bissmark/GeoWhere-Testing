@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-import QuizParent from "../Quiz/QuizParent";
-import supabase from "../../supabaseClient";
 import React, { Component } from "react";
 
 class CountdownTimer extends Component {
