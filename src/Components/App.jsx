@@ -33,7 +33,7 @@ export default function App() {
       <BrowserRouter>
         <Navbar session={session} />
         <Routes>
-          <Route path="/" element={<Home setTotalScore={setTotalScore} />} />
+          <Route path="/" element={<Home session={session} setTotalScore={setTotalScore} />} />
           <Route path="PlayTrip" element={<PlayTrip session={session} setRound={setRound} round={round} totalScore={totalScore} setTotalScore={setTotalScore} currentHighScore={currentHighScore} setCurrentHighScore={setCurrentHighScore} />} />
           <Route path="Quizform" element={<QuizForm />} />
           <Route path="Quiz" element={<QuizParent />} />

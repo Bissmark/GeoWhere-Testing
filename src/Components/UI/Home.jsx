@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HomePicture from './../../globe.gif'
+import HighScoreTable from "../UIGame/HighScoreTable";
 
-function Home({setTotalScore}) {
+function Home({session, setTotalScore}) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="mb-7">
@@ -25,6 +26,7 @@ function Home({setTotalScore}) {
           </li>
         </ol>
       </div>
+      <HighScoreTable session={session} />
     </div>
   );
 }
