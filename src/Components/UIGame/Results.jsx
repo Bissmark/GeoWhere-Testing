@@ -8,16 +8,19 @@ export const Results = ({ session, totalScore, setTotalScore }) => {
     const [loading, setLoading] = useState(true)
     const [currentHighScore, setCurrentHighScore] = useState(0);
 
+    // Fetch current score from the database based on the user and put it into a variable called currentHighScore
     useEffect(() => {
         const fetchScore = async() => {
-            const { data, error } = await supabase
+            const { user } = session;
+
+            let { data, error } = await supabase
             .from('profiles')
             .select('score')
-            .eq('id', 1)
+            .eq('id', user.id)
             .single()
 
             if (error) {
-                console.error('Error fetching score: ', error);
+                console.error('Error fetching score: lmao', error);
             } else {
                 setCurrentHighScore(data.score);
             }
@@ -26,19 +29,20 @@ export const Results = ({ session, totalScore, setTotalScore }) => {
       
     }, []);
 
+    // Update the score in the database if the score than the user just got is larger than the score already in the database
     const updateScore = async (e) => {
         e.preventDefault();
-        console.log('Score from this round', currentHighScore);
-        console.log('Previous High Score', totalScore);
+        // console.log('Score from this round', totalScore);
+        // console.log('Previous High Score from database', currentHighScore);
 
         try {
             setLoading(true);
-
-            const updates = {
-                id: session.user.id,
-                score: totalScore
-            }
             if (totalScore > currentHighScore) {
+                const updates = {
+                    id: session.user.id,
+                    score: totalScore
+                }
+
                 let { error } = await supabase.from('profiles').upsert(updates, {
                     returning: 'minimal',
                 })
@@ -49,6 +53,7 @@ export const Results = ({ session, totalScore, setTotalScore }) => {
         } catch (error) {
             alert(error.message);
         } finally {
+            
             setLoading(false);
         }
     }
