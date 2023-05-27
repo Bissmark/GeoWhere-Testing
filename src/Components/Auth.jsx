@@ -1,6 +1,18 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 
+async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google'
+  })
+}
+
+async function signInWithGithub() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github'
+})
+}
+
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
@@ -34,6 +46,10 @@ export default function Auth() {
           </div>
         ) : (
           <div>
+            <div className='flex'>
+              <button className="bg-yellow-400 p-4 mt-5 rounded-lg mb-5 mr-5" onClick={signInWithGoogle}>Sign in with Google</button>
+              <button className="bg-yellow-400 p-4 mt-5 rounded-lg mb-5" onClick={signInWithGithub}>Sign in with Github</button>  
+            </div>
             <p className="text-3xl font-bold underline text-center text-yellow-400 mb-5">Login</p>
             <form className="bg-slate-400 rounded-lg flex flex-col items-center" onSubmit={handleLogin}>
               <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">
