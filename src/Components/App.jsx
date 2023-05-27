@@ -17,6 +17,7 @@ export default function App() {
   const [round, setRound] = useState(1);
   const [totalScore, setTotalScore] = useState(0);
   const [currentHighScore, setCurrentHighScore] = useState(0);
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
     // supabase.auth.getSession().then(({ data: { session } }) => {
@@ -31,9 +32,9 @@ export default function App() {
   return (
     <div className="body-font font-cagliostro">
       <BrowserRouter>
-        <Navbar session={session} />
+        <Navbar session={session} avatarUrl={avatarUrl} />
         <Routes>
-          <Route path="/" element={<Home session={session} setTotalScore={setTotalScore} />} />
+          <Route path="/" element={<Home session={session} setTotalScore={setTotalScore} setRound={setRound} />} />
           <Route path="PlayTrip" element={<PlayTrip session={session} setRound={setRound} round={round} totalScore={totalScore} setTotalScore={setTotalScore} currentHighScore={currentHighScore} setCurrentHighScore={setCurrentHighScore} />} />
           <Route path="Quizform" element={<QuizForm />} />
           <Route path="Quiz" element={<QuizParent />} />
@@ -41,7 +42,7 @@ export default function App() {
           <Route path="Register" element={<Register />} />
           <Route path="Account" element={!session ? (
             <Auth /> ) : (
-              <Account key={session.user.id} session={session} />
+              <Account key={session.user.id} session={session} avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
             )} />
         </Routes>
       </BrowserRouter>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import HomePicture from './../../globe.gif'
 import HighScoreTable from "../UIGame/HighScoreTable";
 
-function Home({session, setTotalScore}) {
+function Home({ session, setTotalScore, setRound }) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="mb-7">
@@ -12,9 +12,8 @@ function Home({session, setTotalScore}) {
       </div>
       <img className='pl-8 pr-8 max-w rounded-lg mb-10' src={HomePicture}></img>
       <button className="mb-5" onClick={() => setTotalScore(0)}>
-        <Link className="text-center text-xl focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 mr-2 dark:focus:ring-yellow-900" to="/PlayTrip">Play</Link>  
+        <Link onClick={() => setRound(1)} className="text-center text-xl focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 mr-2 dark:focus:ring-yellow-900" to="/PlayTrip">Play</Link>
       </button>
-      
       <div className="bg-slate-800 rounded-lg p-8 m-5 text-yellow-500">
         <h1 className='text-3xl mb-5'>How to play</h1>
         <ol className="text-left">

@@ -1,13 +1,12 @@
 import React from "react";
 import Streetview from "./Streetview";
 import Map from "./Map";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { calculateDistance } from "../../Utils/DistanceCalc";
 import { locationCoordinates } from "../../Utils/Locations";
 import { Results } from "../UIGame/Results";
 import Score from "../UIGame/Score";
 import TotalScore from "../UIGame/TotalScore";
-import { supabase } from "../../supabaseClient";
 
 function randomIntFromInterval() {
   return Math.floor(Math.random() * (locationCoordinates.length - 1 - 0 + 1) + 0);
@@ -21,13 +20,13 @@ function randomIntFromIntervalNotSameOne(oldNum) {
   return randomIntFromIntervalNotSameOne(oldNum);
 }
 
-function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurrentHighScore}) {
+function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurrentHighScore, round, setRound }) {
   const [view, setView] = useState('');
   const [markerLocation, setMarkerLocation] = useState([]);
   const [locationNumber, setLocationNumber] = useState(randomIntFromInterval());
-  const [round, setRound] = useState(1);
   const [newRoundScore, setNewRoundScore] = useState(0);
   const [username, setUsername] = useState(null);
+  const [seconds, setSeconds] = useState(120);
   
   const updateMarkers = (lat, lng) => {
     setMarkerLocation([lat,lng]);
@@ -43,6 +42,7 @@ function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurr
     setView(view ? view - 1 : view + 1);
     setLocationNumber(randomIntFromIntervalNotSameOne(locationNumber));
     setRound(round + 1);
+    setSeconds(10);
   };
 
   // Calcuate the points based on the distance between the 2 coordinates, add to total score
@@ -58,15 +58,14 @@ function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurr
   // if its the 6th round show results page else if on round 1-5 show either the guessing map or the results map
   return (
       <div>
-          { round === 6 && (
+          { round === 6 &&
             <div>
-              <Results session={session} totalScore={ totalScore } setTotalScore={setTotalScore} currentHighScore={currentHighScore} setCurrentHighScore={setCurrentHighScore}/>
+              <Results session={session} totalScore={ totalScore } />
             </div>
-          )}
+          }
           { round !== 6 && !view && (
-            <div>
-              {/* <Round round={ round }/> */}
-              <Streetview locationNumber={ locationNumber} updateMarkers={updateMarkers} guessLocation={guessLocation} round={round}/>
+            <div className="mt-5">
+              <Streetview locationNumber={ locationNumber} updateMarkers={updateMarkers} guessLocation={guessLocation} round={round} setRound={setRound} seconds={seconds} setSeconds={setSeconds} />
             </div>
           )}
           { round !== 6 && view && (

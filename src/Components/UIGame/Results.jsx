@@ -1,10 +1,11 @@
-import TotalScore from "./TotalScore";
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import { Link } from "react-router-dom";
+import WellDone from "../../Well-Done.png"
+import FinalScore from "./FinalScore";
 
 // The UI element showing after you have completed 5 rounds, or the Timer ends
-export const Results = ({ session, totalScore, setTotalScore }) => {
+export const Results = ({ session, totalScore, setRound }) => {
     const [loading, setLoading] = useState(true)
     const [currentHighScore, setCurrentHighScore] = useState(0);
 
@@ -32,8 +33,6 @@ export const Results = ({ session, totalScore, setTotalScore }) => {
     // Update the score in the database if the score than the user just got is larger than the score already in the database
     const updateScore = async (e) => {
         e.preventDefault();
-        // console.log('Score from this round', totalScore);
-        // console.log('Previous High Score from database', currentHighScore);
 
         try {
             setLoading(true);
@@ -59,10 +58,14 @@ export const Results = ({ session, totalScore, setTotalScore }) => {
     }
 
     return (
-        <div>
-            <div>Congrats</div>
-            <TotalScore totalScore={ totalScore } />
-            <Link onClick={updateScore} to="/" className="bg-yellow-400 rounded-lg p-4">Play Again</Link>
+        <div className="flex flex-col items-center text-center">
+            <h1 className="mt-5 text-yellow-400 text-5xl md:text-9xl mb-10">Congrats</h1>
+            <img className="mb-10" src={WellDone} alt="" />
+            <div className="inline-block">
+                <FinalScore totalScore={ totalScore } />
+                <Link onClick={() => setRound(1) && updateScore} to="/playtrip" className="bg-yellow-400 rounded-lg p-4 hover:bg-red-500">Play Again</Link>    
+            </div>
+           
         </div>
     );
 };

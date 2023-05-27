@@ -1,10 +1,8 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../supabaseClient";
-import { useState } from "react";
 
 const HighScoreTable = () => {
     const [highscore, setHighScore] = useState([]);
-    //const [username, setUsername] = useState([]);
 
     useEffect(() => {
         const fetchScore = async() => {
@@ -12,8 +10,6 @@ const HighScoreTable = () => {
             .from('profiles')
             .select(`username, score`)
             .order('score', {ascending: false });
-
-            console.log(data)
 
             if (error) {
                 console.error('Error fetching high scores: ', error);
@@ -26,7 +22,7 @@ const HighScoreTable = () => {
 
     return (
         <div>
-            <table className="w-full text-sm text-left text-yellow-400 dark:text-gray-400">
+            <table className="text-sm text-left text-yellow-400 dark:text-gray-400 mb-5">
                 <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-yellow-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">

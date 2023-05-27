@@ -31,6 +31,10 @@ export const locationCoordinates = [
     [{ lat: 47.50217785148032, lng: 19.042383259935452 }, {country: 'Hungary'}],
     [{ lat: 47.94816676465809, lng: 106.95233390604905 }, {country: 'Mongolia'}],
   ];
+
+  export const landmarkCoordinates = [
+    
+  ]
   //had to meet following conditions
   // - need to appear on the api map
   // - need to be able to move around the street map

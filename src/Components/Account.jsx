@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import Avatar from './Avatar'
 
-const Account = ({ session }) => {
-  const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
+const Account = ({ session, avatarUrl, setAvatarUrl }) => {
+  const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState(null);
+  const [avatar_url, setAvatar_Url] = useState(null);
   const [score, setScore] = useState(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Account = ({ session }) => {
           throw error 
         } else if (data) {
           setUsername(data.username);
-          setAvatarUrl(data.avatar_url);
+          setAvatar_Url(data.avatar_url);
           setScore(data.score);
         }
       } catch (error) {
@@ -105,6 +105,8 @@ const Account = ({ session }) => {
           </div>
           <div className='my-8 items-center'>
               <Avatar
+              avatarUrl={avatarUrl} 
+              setAvatarUrl={setAvatarUrl}
             url={avatar_url}
             onUpload={(url) => {
             setAvatarUrl(url)
