@@ -2,15 +2,12 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
 
 
-export default function Avatar({ url, size, onUpload, avatarUrl, setAvatarUrl }) {
-  // const [avatarUrl, setAvatarUrl] = useState(null)
+export default function Avatar(props) {
   const [uploading, setUploading] = useState(false)
 
-  console.log(avatarUrl);
-
   useEffect(() => {
-    if (url) downloadImage(url)
-  }, [url])
+    if (props.url) downloadImage(props.url)
+  }, [props.url])
 
   const downloadImage = async (path) => {
     try {
@@ -21,7 +18,7 @@ export default function Avatar({ url, size, onUpload, avatarUrl, setAvatarUrl })
         throw error
       }
       const url = URL.createObjectURL(data)
-      setAvatarUrl(url)
+      props.setAvatarUrl(url)
     } catch (error) {
       console.log('Error downloading image: ', error.message)
     }
@@ -48,7 +45,7 @@ export default function Avatar({ url, size, onUpload, avatarUrl, setAvatarUrl })
         throw uploadError
       }
 
-      onUpload(filePath)
+      props.onUpload(filePath)
     } catch (error) {
       alert(error.message)
     } finally {
@@ -60,8 +57,8 @@ export default function Avatar({ url, size, onUpload, avatarUrl, setAvatarUrl })
     <div>
       <img
       className='h-72 mx-auto md:h-max'
-        src={avatarUrl ? avatarUrl : `https://place-hold.it/${size}x${size}`}
-        alt={avatarUrl ? 'Avatar' : 'No image'}
+        src={props.avatarUrl ? props.avatarUrl : `https://place-hold.it/${props.size}x${props.size}`}
+        alt={props.avatarUrl ? 'Avatar' : 'No image'}
       />
       {uploading ? (
         'Uploading...'

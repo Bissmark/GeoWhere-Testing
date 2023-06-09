@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HomePicture from './../../globe.gif'
 
-function Navbar({session, avatarUrl}) {
+function Navbar(props) {
   const [openNav, setOpenNav] = useState(false);
 
   const handleDropDown = () => {
@@ -50,7 +50,7 @@ function Navbar({session, avatarUrl}) {
                 Quiz
               </Link>
             </li>
-            { session ? (
+            { props.session ? (
               <>
                 <li>
                   <Link
@@ -59,7 +59,7 @@ function Navbar({session, avatarUrl}) {
                     // className="py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-blue-500 md:dark:hover:bg-transparent"
                     
                   >
-                    <img className="h-6 ml-1 rounded-full" src={ avatarUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" />
+                    <img className="h-6 ml-1 rounded-full" src={ props.avatarUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" />
                     {/* Account */}
                   </Link>
                 </li>
@@ -86,7 +86,6 @@ function Navbar({session, avatarUrl}) {
                 </li>  
               </>
             )}
-            
           </ul>
         </div>
       </div>

@@ -13,8 +13,7 @@ const containerStyle = {
 };
 export let coordinates = locationCoordinates; // Get coordinates
 
-function MyComponent({ locationNumber, round, setRound, updateMarkers, guessLocation, seconds, setSeconds }) {
-
+const StreetView = (props) => {
   // gets google api key
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -38,17 +37,16 @@ function MyComponent({ locationNumber, round, setRound, updateMarkers, guessLoca
         addressControl={false}
       >
         <StreetViewPanorama
-          position={locationCoordinates[locationNumber][0]}
+          position={locationCoordinates[props.locationNumber][0]}
           options={panoOptions}
-
         />
-        <Round round={round} />
-        <CountdownTimer round={round} setRound={setRound} seconds={seconds} setSeconds={setSeconds} />
-        <GuessMap updateMarkers={updateMarkers} guessLocation={guessLocation} />
+        <Round round={props.round} />
+        <CountdownTimer round={props.round} setRound={props.setRound} seconds={props.seconds} setSeconds={props.setSeconds} />
+        <GuessMap updateMarkers={props.updateMarkers} guessLocation={props.guessLocation} />
       </GoogleMap>
 
     </div>
   ) : <></>
 }
 
-export default React.memo(MyComponent);
+export default StreetView;

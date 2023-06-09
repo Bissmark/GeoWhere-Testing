@@ -9,7 +9,7 @@ const center = {
 
 
 
-export default function GuessMap({ updateMarkers, guessLocation }) {
+const GuessMap = (props) => {
     const [selected, setSelected] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState();
 
@@ -28,11 +28,11 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
     const _handleMapClick = (ev, lat, lng) => {
         setSelected(true);
         setSelectedLocation(ev.latLng);
-        updateMarkers(lat, lng);
+        props.updateMarkers(lat, lng);
     }
 
     const _handleGuessClick = () => {
-        guessLocation();
+        props.guessLocation();
     }
 
     const mapOptions = {
@@ -57,4 +57,6 @@ export default function GuessMap({ updateMarkers, guessLocation }) {
             <button className="bg-yellow-400 text-slate-800 relative left-1/3 w-28 rounded-lg h-10 mt-3 hover:bg-red-400 hover:animate-bounce" onClick={() => _handleGuessClick()}>Guess</button>
         </div>
     ) : <></>
-}
+};
+
+export default GuessMap;

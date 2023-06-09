@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import Avatar from './Avatar'
 
-const Account = ({ session, avatarUrl, setAvatarUrl }) => {
+const Account = (props) => {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [avatar_url, setAvatar_Url] = useState(null);
@@ -12,7 +12,7 @@ const Account = ({ session, avatarUrl, setAvatarUrl }) => {
     const getProfile = async () => {
       try {
         setLoading(true)
-        const { user } = session;
+        const { user } = props.session;
 
         let { data, error, status } = await supabase
           .from('profiles')
@@ -35,17 +35,15 @@ const Account = ({ session, avatarUrl, setAvatarUrl }) => {
     }
 
     getProfile();
-  }, [session])
+  }, [props.session])
   
 
   const updateProfile = async (e) => {
-    e.preventDefault();
-
     try {
       setLoading(true)
 
       const updates = {
-        id: session.user.id,
+        id: props.session.user.id,
         username,
         avatar_url,
         updated_at: new Date(),
@@ -78,7 +76,7 @@ const Account = ({ session, avatarUrl, setAvatarUrl }) => {
             <input
               className='text-black text-center rounded-lg mr-5'
               type="text"
-              value={session.user.email || ''}
+              value={props.session.user.email || ''}
               disabled
             />
             <label className='text-yellow-500 text-sm font-bold mb-2 mt-5 mr-2' htmlFor="username">
@@ -105,11 +103,11 @@ const Account = ({ session, avatarUrl, setAvatarUrl }) => {
           </div>
           <div className='my-8 items-center'>
               <Avatar
-              avatarUrl={avatarUrl} 
-              setAvatarUrl={setAvatarUrl}
+              avatarUrl={ props.avatarUrl } 
+              setAvatarUrl={ props.setAvatarUrl }
             url={avatar_url}
             onUpload={(url) => {
-            setAvatarUrl(url)
+            props.setAvatarUrl(url)
             updateProfile({ username, avatar_url: url })
           }}
         />

@@ -10,7 +10,7 @@ const containerStyle = {
   margin: '0 auto',
 };
 
-function MyComponent({ markerValue, locationNumber }) {
+const Map = (props) => {
   const [country, setCountry] = useState('');
 
   // Loads google api key
@@ -23,7 +23,7 @@ function MyComponent({ markerValue, locationNumber }) {
     const handleMarkerPositionChanged = async () => {
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${markerValue[0]},${markerValue[1]}&key=${process.env.REACT_APP_API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${props.markerValue[0]},${props.markerValue[1]}&key=${process.env.REACT_APP_API_KEY}`
       );
   
       const result = response.data.results.find((r) =>
@@ -41,9 +41,9 @@ function MyComponent({ markerValue, locationNumber }) {
     }
   };
   handleMarkerPositionChanged();
-  }, [markerValue])
+  }, [props.markerValue])
 
-  let coordinateStreetView = coordinates[locationNumber][0]
+  let coordinateStreetView = coordinates[props.locationNumber][0]
 
   const mapOptions = {
     disableDefaultUI: true,
@@ -64,7 +64,7 @@ function MyComponent({ markerValue, locationNumber }) {
     zIndex: 1,
   };
 
-  let clickedMarkerValues = { lat: markerValue[0], lng: markerValue[1] }
+  let clickedMarkerValues = { lat: props.markerValue[0], lng: props.markerValue[1] }
 
   // Line between the 2 coordinates
   const PolyLineBetweenGuessAndCorrect = [
@@ -86,7 +86,7 @@ function MyComponent({ markerValue, locationNumber }) {
       >
         {clickedMarkerValues.lat ? <Marker>
           <InfoWindow position={coordinateStreetView}>
-            <div>{coordinates[locationNumber][1].country}</div>
+            <div>{coordinates[props.locationNumber][1].location}</div>
           </InfoWindow></Marker> : null}
         {clickedMarkerValues.lat ? <Marker>
         <InfoWindow position={clickedMarkerValues}>
@@ -103,4 +103,4 @@ function MyComponent({ markerValue, locationNumber }) {
   );
 }
 
-export default MyComponent;
+export default Map;

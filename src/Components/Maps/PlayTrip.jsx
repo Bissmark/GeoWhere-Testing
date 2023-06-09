@@ -20,7 +20,7 @@ function randomIntFromIntervalNotSameOne(oldNum) {
   return randomIntFromIntervalNotSameOne(oldNum);
 }
 
-function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurrentHighScore, round, setRound }) {
+const PlayTrip = (props) => {
   const [view, setView] = useState('');
   const [markerLocation, setMarkerLocation] = useState([]);
   const [locationNumber, setLocationNumber] = useState(randomIntFromInterval());
@@ -41,8 +41,8 @@ function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurr
   const nextRound = () => {
     setView(view ? view - 1 : view + 1);
     setLocationNumber(randomIntFromIntervalNotSameOne(locationNumber));
-    setRound(round + 1);
-    setSeconds(10);
+    props.setRound(props.round + 1);
+    setSeconds(120);
   };
 
   // Calcuate the points based on the distance between the 2 coordinates, add to total score
@@ -52,30 +52,30 @@ function PlayTrip({session, totalScore, setTotalScore, currentHighScore, setCurr
       ? calculateDistance(originalLocationCoords.lat, originalLocationCoords.lng, markerLocation[0], markerLocation[1])
       : 0;
       setNewRoundScore(points);
-      setTotalScore(totalScore + points);
+      props.setTotalScore(props.totalScore + points);
   }
 
   // if its the 6th round show results page else if on round 1-5 show either the guessing map or the results map
   return (
       <div>
-          { round === 6 &&
+          { props.round === 6 &&
             <div>
-              <Results session={session} totalScore={ totalScore } />
+              <Results session={props.session} totalScore={ props.totalScore } setRound={props.setRound} setSeconds={setSeconds}/>
             </div>
           }
-          { round !== 6 && !view && (
+          { props.round !== 6 && !view && (
             <div className="mt-5">
-              <Streetview locationNumber={ locationNumber} updateMarkers={updateMarkers} guessLocation={guessLocation} round={round} setRound={setRound} seconds={seconds} setSeconds={setSeconds} />
+              <Streetview locationNumber={ locationNumber} updateMarkers={updateMarkers} guessLocation={guessLocation} round={props.round} setRound={props.setRound} seconds={seconds} setSeconds={setSeconds} />
             </div>
           )}
-          { round !== 6 && view && (
+          { props.round !== 6 && view && (
             <div>
               <div className="flex items-center justify-evenly mb-5 mt-5">
                 <Score username={username} newRoundScore={ newRoundScore }/>
                 <button className="bg-yellow-400 text-slate-800 p-2 rounded-lg hover:bg-red-500 hover:animate-bounce" onClick={ nextRound }>
-                { round !== 5 ? 'Next Round' : 'Finish' }
+                { props.round !== 5 ? 'Next Round' : 'Finish' }
                 </button>
-                <TotalScore username={username} totalScore={ totalScore }/>  
+                <TotalScore username={username} totalScore={ props.totalScore }/>  
               </div>
               <Map markerValue={ markerLocation } locationNumber={ locationNumber } />
             </div>

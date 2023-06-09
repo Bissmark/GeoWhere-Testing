@@ -5,14 +5,16 @@ import WellDone from "../../Well-Done.png"
 import FinalScore from "./FinalScore";
 
 // The UI element showing after you have completed 5 rounds, or the Timer ends
-export const Results = ({ session, totalScore, setRound }) => {
+export const Results = (props) => {
+    console.log(props);
+
     const [loading, setLoading] = useState(true)
     const [currentHighScore, setCurrentHighScore] = useState(0);
 
     // Fetch current score from the database based on the user and put it into a variable called currentHighScore
     useEffect(() => {
         const fetchScore = async() => {
-            const { user } = session;
+            const { user } = props.session;
 
             let { data, error } = await supabase
             .from('profiles')
@@ -36,10 +38,10 @@ export const Results = ({ session, totalScore, setRound }) => {
 
         try {
             setLoading(true);
-            if (totalScore > currentHighScore) {
+            if (props.totalScore > currentHighScore) {
                 const updates = {
-                    id: session.user.id,
-                    score: totalScore
+                    id: props.session.user.id,
+                    score: props.totalScore
                 }
 
                 let { error } = await supabase.from('profiles').upsert(updates, {
@@ -52,7 +54,8 @@ export const Results = ({ session, totalScore, setRound }) => {
         } catch (error) {
             alert(error.message);
         } finally {
-            
+            props.setSeconds(120);
+            props.setRound(1);
             setLoading(false);
         }
     }
@@ -62,8 +65,8 @@ export const Results = ({ session, totalScore, setRound }) => {
             <h1 className="mt-5 text-yellow-400 text-5xl md:text-9xl mb-10">Congrats</h1>
             <img className="mb-10" src={WellDone} alt="" />
             <div className="inline-block">
-                <FinalScore totalScore={ totalScore } />
-                <Link onClick={() => setRound(1) && updateScore} to="/playtrip" className="bg-yellow-400 rounded-lg p-4 hover:bg-red-500">Play Again</Link>    
+                <FinalScore totalScore={ props.totalScore } />
+                <Link onClick={updateScore} to="/playtrip" className="bg-yellow-400 rounded-lg p-4 hover:bg-red-500">Play Again</Link>    
             </div>
            
         </div>
