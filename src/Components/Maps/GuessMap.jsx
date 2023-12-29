@@ -7,8 +7,6 @@ const center = {
   lng: -180
 };
 
-
-
 const GuessMap = (props) => {
     const [selected, setSelected] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState();

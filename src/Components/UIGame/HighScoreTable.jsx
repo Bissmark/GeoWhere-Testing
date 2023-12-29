@@ -10,6 +10,7 @@ const HighScoreTable = () => {
             .from('profiles')
             .select(`username, score`)
             .order('score', {ascending: false });
+            console.log(data);
 
             if (error) {
                 console.error('Error fetching high scores: ', error);

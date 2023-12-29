@@ -1,4 +1,4 @@
-import CountdownTimer from "../CountdownTimer/CountdownTimer";
+// import CountdownTimer from "../CountdownTimer/CountdownTimer";
 import Quiz from "./Quiz";
 import { useEffect, useState } from 'react';
 import { supabase } from "../../supabaseClient";
@@ -46,7 +46,7 @@ function QuizParent () {
         <div className="text-yellow-500 text-center my-10">
             <h2>{ currentQuiz }</h2>
             <Quiz />
-            <CountdownTimer eraseSubmission={ eraseSubmission } fetchRandomQuiz={ fetchRandomQuiz } />
+            {/* <CountdownTimer eraseSubmission={ eraseSubmission } fetchRandomQuiz={ fetchRandomQuiz } /> */}
         </div>
     );
 }

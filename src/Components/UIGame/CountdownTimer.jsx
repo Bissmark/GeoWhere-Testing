@@ -17,8 +17,8 @@ const CountdownTimer = (props) => {
     };
 
     return (
-        <div className="z-10 bg-yellow-400 absolute px-10 py-5 right-0">
-            <div>
+        <div className="z-10 bg-yellow-400 absolute px-10 py-5 right-0 md:text-4xl">
+            <div className='w-12 md:w-16 text-center'>
                 {props.seconds > 0 ? (formatTime(props.seconds)) : (props.setRound(6))}
             </div>
         </div>

@@ -32,7 +32,7 @@ function Navbar(props) {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to='/'
                 onClick={handleDropDown}
@@ -40,8 +40,8 @@ function Navbar(props) {
               >
                 Play With Friends
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to='/Quizform'
                 onClick={handleDropDown}
@@ -49,7 +49,7 @@ function Navbar(props) {
               >
                 Quiz
               </Link>
-            </li>
+            </li> */}
             { props.session ? (
               <>
                 <li>

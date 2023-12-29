@@ -70,14 +70,14 @@ const PlayTrip = (props) => {
           )}
           { props.round !== 6 && view && (
             <div>
-              <div className="flex items-center justify-evenly mb-5 mt-5">
-                <Score username={username} newRoundScore={ newRoundScore }/>
-                <button className="bg-yellow-400 text-slate-800 p-2 rounded-lg hover:bg-red-500 hover:animate-bounce" onClick={ nextRound }>
-                { props.round !== 5 ? 'Next Round' : 'Finish' }
-                </button>
-                <TotalScore username={username} totalScore={ props.totalScore }/>  
-              </div>
-              <Map markerValue={ markerLocation } locationNumber={ locationNumber } />
+                <div className="flex items-center justify-center md:justify-evenly mb-5 mt-5">
+                    <Score username={username} newRoundScore={newRoundScore} />
+                    <button className="bg-yellow-400 text-slate-800 p-2 rounded-lg hover:bg-red-500 hover:animate-bounce" onClick={nextRound}>
+                    {props.round !== 5 ? 'Next Round' : 'Finish'}
+                    </button>
+                    <TotalScore username={username} totalScore={props.totalScore} />
+                </div>
+                <Map markerValue={markerLocation} locationNumber={locationNumber} />
             </div>
           )}
       </div>
