@@ -28,7 +28,7 @@ export default function Register() {
 
     return (
         <div className="mt-5">
-            <p className="text-3xl font-bold underline text-center text-yellow-400 mb-5">Sign up to our great website</p>
+            <p className="text-3xl font-bold underline text-center text-yellow-400 mb-5">Sign up and start playing!</p>
             <div className="m-auto max-w-xs">
                 <form className="bg-slate-400 rounded-lg flex flex-col items-center" onSubmit={Signup}>
                     <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">
