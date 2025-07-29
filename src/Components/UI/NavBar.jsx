@@ -50,7 +50,16 @@ function Navbar(props) {
                 Quiz
               </Link>
             </li> */}
-            { props.session ? (
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;
+/*
+{ props.session ? (
               <>
                 <li>
                   <Link
@@ -60,7 +69,7 @@ function Navbar(props) {
                     
                   >
                     <img className="h-6 ml-1 rounded-full" src={ props.avatarUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" />
-                    {/* Account */}
+                    {/* Account
                   </Link>
                 </li>
               </>
@@ -86,11 +95,4 @@ function Navbar(props) {
                 </li>  
               </>
             )}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-export default Navbar;
+        */
